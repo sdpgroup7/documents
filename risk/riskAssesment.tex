@@ -1,5 +1,7 @@
 \documentclass{article}
 
+\usepackage{pdflscape}
+
 \begin{document}
 
 \title{Risk Assessment}
@@ -14,5 +16,53 @@ This document identifies risks, both internal and external, to the project. It
 also sets out measures which we have implemented to prevent the risk
 happening and steps if the event does indeed happen.
 
+Risks are rated from 1 to 5 with 1 being the least severe (minor) and 5 being
+the most severe (catastrophic).
+
+\section{Assessment}
+
+\begin{landscape}
+
+    \begin{tabular}{ p{4cm}  p{2cm} p{2cm} p{4cm} p{4cm} }
+        Risk & Rating & Likelyhood & Measures to prevent & Steps in event of\\
+        \hline
+
+        Communication failure over bluetooth to robot &
+        3 &
+        20\% &
+        The robot
+        has a hardcoded fallback mode so if the communication link is lost it
+        will use odometry to drive back to its starting point and act as
+        a goalie. &
+        Allow the hard coded method to be used and try and establish the
+        communication link again.\\
+        \\
+        Some exception on the brick will cause the control system on the brick
+        to stop. &
+        4 &
+        30\% &
+        As many as possible exceptions on the brick will be caught and handled.
+        &
+        Our robot will probably stop and restart. It is very probable we will
+        lose the match.\\
+        \\
+        The battery runs out during a match or milestone. &
+        4 &
+        5\% &
+        Before each match and milestone the LithIon battery will be charged
+        overnight. The AA battery's will be charged as well to be used as
+        a reserve and can be swapped out if the battery level runs too low.&
+        %
+        There will be reduced power output from the motors as the batteries
+        approached the end of their power output. The robot will be dead and we
+        will maybe be able to complete the milestone our match will be null and
+        void.\\
+        \\
+        
+
+
+
+    \end{tabular}
+\end{landscape}
 \end{document}
 
