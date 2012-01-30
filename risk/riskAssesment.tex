@@ -1,6 +1,7 @@
 \documentclass{article}
 
 \usepackage{pdflscape}
+\usepackage{longtable}
 
 \begin{document}
 
@@ -20,78 +21,120 @@ Risks are rated from 1 to 5 with 1 being the least severe (minor) and 5 being
 the most severe (catastrophic).
 
 \section{Assessment}
+%
+%\begin{landscape}
+%
+%    \begin{tabular}{ p{4cm}  p{2cm} p{2cm} p{4cm} p{4cm} }
+%        Risk & Rating & Likelyhood & Measures to prevent & Steps in event of\\
+%        \hline
+%
+%        Communication failure over bluetooth to robot &
+%        3 &
+%        20\% &
+%        The robot
+%        has a hardcoded fallback mode so if the communication link is lost it
+%        will use odometry to drive back to its starting point and act as
+%        a goalie. &
+%        Allow the hard coded method to be used and try and establish the
+%        communication link again.\\
+%        \\
+%        Some exception on the brick will cause the control system on the brick
+%        to stop. &
+%        4 &
+%        30\% &
+%        As many as possible exceptions on the brick will be caught and handled.
+%        &
+%        Our robot will probably stop and restart. It is very probable we will
+%        lose the match.\\
+%        \\
+%        The battery runs out during a match or milestone. &
+%        4 &
+%        5\% &
+%        Before each match and milestone the LithIon battery will be charged
+%        overnight. The AA battery's will be charged as well to be used as
+%        a reserve and can be swapped out if the battery level runs too low.&
+%        %
+%        There will be reduced power output from the motors as the batteries
+%        approached the end of their power output. The robot will be dead and we
+%        will maybe be able to complete the milestone our match will be null and
+%        void.\\
+%        \\
+%        Github failure &
+%        5 &
+%        1\% &
+%        Since git is a distributed version control system, that is each person
+%        has a full copy of the repository plus the full commit history. We
+%        would be able to recover a close version of the code close to the point
+%        of loss. &
+%        %
+%        The branches of all the code will all be slightly different. A new
+%        origin server would be set up and the various teams and their branches
+%        push to it. The previous milestone will have been preserved on
+%        everybody's local repository so in the worst case we can fall back to
+%        that.\\
+%        \\
+%        Robot falls off a table during testing &
+%        3&
+%        10\%
+%        The robots motion will never be tested on a tabletop, always on the
+%        floor or on one of the pitches. On the floor there is no risk of
+%        falling and on the pitches there are barriers around the sides to stop
+%        this happening. Every build of the robot will be photographed so that
+%        we can rebuild from that if necessary.
+%        %
+%        The robot would obviously have to be rebuilt and would take at most two
+%        hours to do this. If this happened near a milestone or match this would
+%        be far more serious.\\
+%        \\
+%
+%
+%        
+%
+%
+%
+%    \end{tabular}
 
-\begin{landscape}
+\begin{longtable}{p{2cm} p{2cm} p{4cm} p{4cm}}
 
-    \begin{tabular}{ p{4cm}  p{2cm} p{2cm} p{4cm} p{4cm} }
-        Risk & Rating & Likelyhood & Measures to prevent & Steps in event of\\
-        \hline
+    \caption{Risk Analysis \label{table:riskAnalysis}}\\
+    
+    %This is the header for the first page of the table
+    
+    {\textbf{Risk}}&
+    {\textbf{Rating}}&
+    {\textbf{Measures to prevent}}&
+    {\textbf{Steps in event of}}\\
+    \hline
+    \endfirsthead
 
-        Communication failure over bluetooth to robot &
-        3 &
-        20\% &
-        The robot
-        has a hardcoded fallback mode so if the communication link is lost it
-        will use odometry to drive back to its starting point and act as
-        a goalie. &
-        Allow the hard coded method to be used and try and establish the
-        communication link again.\\
-        \\
-        Some exception on the brick will cause the control system on the brick
-        to stop. &
-        4 &
-        30\% &
-        As many as possible exceptions on the brick will be caught and handled.
-        &
-        Our robot will probably stop and restart. It is very probable we will
-        lose the match.\\
-        \\
-        The battery runs out during a match or milestone. &
-        4 &
-        5\% &
-        Before each match and milestone the LithIon battery will be charged
-        overnight. The AA battery's will be charged as well to be used as
-        a reserve and can be swapped out if the battery level runs too low.&
-        %
-        There will be reduced power output from the motors as the batteries
-        approached the end of their power output. The robot will be dead and we
-        will maybe be able to complete the milestone our match will be null and
-        void.\\
-        \\
-        Github failure &
-        5 &
-        1\% &
-        Since git is a distributed version control system, that is each person
-        has a full copy of the repository plus the full commit history. We
-        would be able to recover a close version of the code close to the point
-        of loss. &
-        %
-        The branches of all the code will all be slightly different. A new
-        origin server would be set up and the various teams and their branches
-        push to it. The previous milestone will have been preserved on
-        everybody's local repository so in the worst case we can fall back to
-        that.\\
-        \\
-        Robot falls off a table during testing &
-        3&
-        10\%
-        The robots motion will never be tested on a tabletop, always on the
-        floor or on one of the pitches. On the floor there is no risk of
-        falling and on the pitches there are barriers around the sides to stop
-        this happening. Every build of the robot will be photographed so that
-        we can rebuild from that if necessary.
-        %
-        The robot would obviously have to be rebuilt and would take at most two
-        hours to do this. If this happened near a milestone or match this would
-        be far more serious.\\
-        \\
+    % Top of every page after that
 
+    \multicolumn{3}{c}{{\tablename} \thetable{} -- Continued} \\[0.5ex]
+    {\textbf{Risk}}&
+    {\textbf{Rating}}&
+    {\textbf{Measures to prevent}}&
+    {\textbf{Steps in event of}}\\
+    \hline
+    \endhead
 
-        
+    %This is the footer for all pages except the last page of the table...
+
+    \multicolumn{3}{l}{{Continued on Next Page\ldots}} \\
+    \endfoot
+
+    %Footer on the last page of the table
+
+    \hline
+    \endlastfoot
+
+    %Data
+    
+\end{longtable}
 
 
 
-    \end{tabular}
+
+
 \end{landscape}
 \end{document}
 
