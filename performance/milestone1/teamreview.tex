@@ -1,13 +1,14 @@
-\documentclass[10pt, a4paper]{article} %Defines the document, we are forced to use 10pt
-
+\documentclass[12pt, a4paper]{article} %Defines the document, we are forced to use 12pt
+\usepackage[a4paper,landscape]{geometry}
 \usepackage{longtable}
+\usepackage[cm]{fullpage} %makes the margins more reasonable for a 1 page report
 
 
 \begin{document}
 
 \textbf{SDP Group 7 Team Preformance Review 1 - \today}
 
-\begin{longtable}{c c c p{3cm}}
+\begin{longtable}{c c c p{18cm}}
     \textbf{Name} &
     \textbf{Matric No} &
     \textbf{Score} &
@@ -25,51 +26,73 @@
 
     Wiktor Brodlo &
     s0927919 &
-    &
-    \\
+    3&
+    Did some construction work and identified potential problem with motors\\
 
     David Fraser &
     s0912336 &
-    &
-    \\
+    6&
+    Mainly administration work, setting up issue trackers, etc. Did work on the
+    rebuilds of the robot\\
 
     Radoslav Gabrovski &
     s0951580 &
-    & 
-    \\
+    9& 
+    Worked on both vision and the construction of the robot. Wrote a different
+    thresholding technique for the vision system\\
 
     James Hulme &
     s0901522 &
-    & 
-    \\
+    6& 
+    Refactored much of the old code we used as a base for the vision system.
+    Improved the GUI from old system.\\
 
     Dale Myers &
     s0942590 &
-    &
-    \\
+    6&
+    Refactored much of the old code from last year we used for vision system. \\
 
     Laurie Picken &
     s0903587 &
-    &
-    \\
+    6&
+    Worked on the construction of the robot and has been involved with much of
+    the preplanning for strategy\\
 
     Darie Picu &
     s0935756 &
-    &
-    \\
+    6&
+    Worked on the robot mainly, participating in the various rebuilds of it.\\
 
     Tomas Tauber &
     s0943263 &
-    &
-    \\
+    9&
+    Did major refactoring of both the control and the vision systems. Also
+    produced the ant files which we use to build the systems.\\
 
     Christopher Williams &
     s0955088 &
-    &
-    \\
+    6&
+    Has been planning for the strategy systems for the upcoming milestones and
+    friendly matches\\
 
 
 \end{longtable}
 
+\textbf{Good things} - The base functionality for the vision system is just
+about finished - two weeks ahead of schedule. The main work of the vision
+system from now on will be mainly tuning work. A lot of the preplanning for the
+strategy is also going ahead with systems starting to get implemented, well
+before we need it.
 
+\textbf{Things to improve} - Some lack of interteam communication caused some
+problems with the robot being rebuilt. The robot was rebuilt too many times but we
+feel that the current build of the robot will not change much from now on due
+to what we learned from the previous rebuilds.
+
+\textbf{Goals for next Milestone} - Our goals for the next milestone are to
+have have a working strategy system that can or will be close to handling
+a match situation including collision avoidance. Vision system should have
+a testing system that will allow us to measure its accuracy and make
+improvements to it. We hope to have a working simulator in order to test
+strategy and avoidance systems.
 \end{document}
