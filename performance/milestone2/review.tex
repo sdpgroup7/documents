@@ -1,0 +1,114 @@
+\documentclass[10pt, a4paper]{article} %Defines the document, we are forced to use 10pt
+
+\usepackage{longtable}
+
+\usepackage{fullpage} %makes the margins more reasonable for a 1 page report
+\usepackage[a4paper,landscape]{geometry}
+
+\begin{document}
+
+\textbf{SDP Group 7 Team Performance review 2 - \today}
+
+
+\begin{longtable}{c c c p{16cm}}
+    \textbf{Name} &
+    \textbf{Matric No} &
+    \textbf{Score} &
+    \textbf{Comments}\\
+    \hline
+    \endfirsthead
+
+
+    \textbf{Name} &
+    \textbf{Matric No} &
+    \textbf{Score} &
+    \textbf{Comments}\\
+    \hline
+    \endhead
+
+    Wiktor Brodlo &
+    s0927919 &
+    6&
+    I have developed a simulator of the robot to help the group with developing
+    strategy. The simulator is almost done, it only requires some "glue" with
+    the rest of the system.\\
+
+    David Fraser &
+    s0912336 &
+    6&
+    Worked on the high level planning for the AI and I am currently working on
+    converting the plan from AI into robot commands.\\
+
+    Radoslav Gabrovski &
+    s0951580 &
+    6& 
+    I have been heavily involved in implementing and experimenting with four
+    different methods to find the orientation of the robot, which produced
+    unsatisfactory results. \\
+
+    James Hulme &
+    s0901522 &
+    6& 
+    For this milestone I attempted to improve the accuracy of the robot
+    detection and to enable the vision system to detect orientation. I was
+    partially sucessful in this: achieving an increase in robot detection.\\
+
+    Dale Myers &
+    s0942590 &
+    9&
+    This week my main contribution was to implement the testing system for the
+    vision system along with trying out various methods of orientation
+    detection of the robots. The testing system was rather successful but the
+    orientation detection methods all failed to be better than our current
+    method based on metrics from the testing system I developed.\\
+
+    Laurie Picken &
+    s0903587 &
+    6&
+    Provided an adaptable implementation of the A* path finding algorithm, to
+    be used when dynamically creating plans. Continued to contribute to
+    construction, providing quick fixes and analysis of the performance of
+    different aspects of the robot.\\
+
+    Darie Picu &
+    s0935756 &
+    6&
+I built a spinner at the front of the robot for better control of the ball,
+constructed a better braced frame and wrote a ball prediction class that takes
+5 previous positions of the ball, computes the initial velocity and
+deceleration and thus predicts the future X and Y coordinates of the ball. 
+    \\
+
+    Tomas Tauber &
+    s0943263 &
+    9&
+    I wrote simple methods for getting the robots orientation without the exact
+    Vision feedback and for navigating the robot as a backup solution, write
+    unit tests for some helper methods I reused from the planning code.\\
+
+    Christopher Williams &
+    s0955088 &
+    9&
+    I have been working on the "higher level goal system" for the project:
+    Planning and Strategy.\\
+
+    Arran Wylde &
+       s0811099 &
+                0&
+    Has not been seen or heard from. Ever.\\
+
+\end{longtable}
+\textbf{Good things} - A simulator is now in the works and other testing
+frameworks are getting developed allowing us to test more easily. Strategy is
+progressing well in preparation for the first friendly. Construction work has
+been good with the robot not having to be rebuilt at all.
+
+\textbf{Things to improve} - Attendance at meetings can be bad. Steps have been
+taken to remind people of meetings. Detection of the robot still needs to be
+completed.
+
+\textbf{Goals for next Milestone} - A CI system like Jenkins to be working and
+strategy being joined on to the main system so that it is dictating what the
+robot is doing rather than being hard coded. More testing frameworks in place
+and a working simulator to test the AI with.
+\end{document}
