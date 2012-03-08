@@ -1,0 +1,119 @@
+\documentclass[10pt, a4paper]{article} %Defines the document, we are forced to use 10pt
+
+\usepackage{longtable}
+
+\usepackage{fullpage} %makes the margins more reasonable for a 1 page report
+\usepackage[a4paper,landscape]{geometry}
+
+\begin{document}
+
+\textbf{SDP Group 7 Team Performance Review 3 - \today}
+
+
+\begin{longtable}{c c c p{16cm}}
+    \textbf{Name} &
+    \textbf{Matric No} &
+    \textbf{Score} &
+    \textbf{Comments}\\
+    \hline
+    \endfirsthead
+
+
+    \textbf{Name} &
+    \textbf{Matric No} &
+    \textbf{Score} &
+    \textbf{Comments}\\
+    \hline
+    \endhead
+
+    Wiktor Brodlo &
+    s0927919 &
+    3&
+    I have finished the simulator I was working on and published a document
+    explaining how to use the simulator. I have set up the Jenkins continuous
+    integration system. I have also contributed to the integration plan and the
+    angle system.\\
+
+
+    David Fraser &
+    s0912336 &
+    9&
+    I continued development of the pure pursuit system and this is now
+    producing the arc commands as specified. I also worked on identifying bugs
+    in the control system with Dale and I am continuing to work these out of
+    the system.\\
+
+    Radoslav Gabrovski &
+    s0951580 &
+    6& 
+    Throughout the past three weeks, I have manly been involved into the
+    development of the vision system and I also was involved in the angle
+    system and the implementation of some of the control functions for the
+    milestone. \\
+
+
+    James Hulme &
+    s0901522 &
+    9& 
+    This milestone I started off by creating a technique to consistently get
+    the robot position accurately. I then polished up multiple areas of the
+    vision system providing cleaner and faster code. I also updated the vision
+    testing system to keep it up to date with the recent changes.\\
+
+    Dale Myers &
+    s0942590 &
+    9&
+    I shifted my focus away from the vision to the strategy system. Most
+    of my time in strategy was spent fixing small bugs, learning how the
+    system worked so that I could work independently.  In this respect 
+    I was successful as I can pinpoint code and fix
+    any errors that come up without bothering others.\\
+
+    Laurie Picken &
+    s0903587 &
+    6&
+    My contributions have been in construction and strategy, I provided a pair
+    of prongs at the front of the robot to control the ball whilst dribbling
+    and helped to build a kicker that works around the front wheels.  I also
+    provided the strategy and command interface for penalty offence and
+    defence.\\
+
+
+    Darie Picu &
+    s0935756 &
+    6&
+    Worked on much of the mathmatics behind the planning system such as ball
+    predicition. Also worked on the contruction of the new kicker to go round
+    the spinners.\\
+
+    Tomas Tauber &
+    s0943263 &
+    9&
+    I upgraded the LeJOS firmware and library to the new version, wrote an
+    initial odometry-based fallback navigation to the initial position,
+    stress-tested the whole system and measured its lead using the YourKit
+    profiler, and prepared a solution for the milestone with some parts of the
+    existing strategy code.\\
+
+    Christopher Williams &
+    s0955088 &
+    9&
+    I have been working on the Planning and Strategy of the robot. This
+    includes working on the A* path finding and developing the ”vehicle” that
+    creates and carries a plan to the Control Interface of the robot. \\
+
+
+\end{longtable}
+\textbf{Good things} - Improvements to the kicker were made do it can now kick
+with the spinners on the front of the robot. Team communication has improved
+since the last milestone. Strategy is continuing to progress well.
+
+\textbf{Things to improve} - The control system has been identified as a weak
+point for bugs. This should be reworked over the next week or so to remove any
+of the bugs and difficulties we encountered over the past few weeks.
+
+\textbf{Goals for next Milestone} - We want to get arcing working properly and
+using it move the robot rather than hacked together solutions at the last
+minute. Progression in the vision system with barrel distortion and paralleling
+would also be ideal.
+\end{document}
