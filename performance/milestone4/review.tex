@@ -1,0 +1,115 @@
+\documentclass[10pt, a4paper]{article} %Defines the document, we are forced to use 10pt
+
+\usepackage{longtable}
+
+\usepackage{fullpage} %makes the margins more reasonable for a 1 page report
+\usepackage[a4paper,landscape]{geometry}
+
+\begin{document}
+
+\textbf{SDP Group 7 Team Performance Review 3 - \today}
+
+
+\begin{longtable}{c c c p{16cm}}
+    \textbf{Name} &
+    \textbf{Matric No} &
+    \textbf{Score} &
+    \textbf{Comments}\\
+    \hline
+    \endfirsthead
+
+
+    \textbf{Name} &
+    \textbf{Matric No} &
+    \textbf{Score} &
+    \textbf{Comments}\\
+    \hline
+    \endhead
+
+    Wiktor Brodlo &
+    s0927919 &
+    6&
+    Because we have changed the packet format and added some more opcodes,
+    I have done some maintenance on the simulator. I have spent most of my time
+    debugging the Bluetooth connection, various delays across the system,
+    helped fix bugs and contributed my ideas to how to improve our system.\\
+
+
+
+    David Fraser &
+    s0912336 &
+    6&
+    I continued to work on the interface between strategy system and the
+    control system.  I assisted in the verification of the arcing mathematics
+    and the search for the problem has now been shifted downstream. I also started
+    the work on the presentation for the final day. Team communications have
+    got better but we still had problems. Angles were still a problem but
+    I acted quickly to resolved it.\\
+
+    Radoslav Gabrovski &
+    s0951580 &
+    9& 
+   My contributions for this milestone was getting a new interface for the
+   vision system , using sliders, writing a guide so that other team members
+   can use it, writing Junit tests for methods for the vision system.
+   I resolved some issues with the dimensions of our robot and resolved some
+   crucial bugs in arcing and verified the result.\\
+
+
+    James Hulme &
+    s0901522 &
+    6& 
+    For this milestone I have been mainly helping out trying to find and fix bugs
+    in the system. I also documented the vision system code.\\
+
+    Dale Myers &
+    s0942590 &
+    6&
+    This week I proposed and helped implement the new control code for the
+    robot. Most of the work was making the new code integrate well with the
+    current system.\\
+
+
+    Laurie Picken &
+    s0903587 &
+    7&
+    Provided a versatile penalty defence system, to be used additionally for
+    goal line defence when in free play. Co-wrote the control code for our
+    first attempt at ball interception. Extensive testing with the robot to
+    facilitate our ball prediction and ball intersection methods.\\
+
+    Darie Picu &
+    s0935756 &
+    7&
+    I worked in the strategy team improving the current methods so that we take
+    into account the obstacles on the pitch and finished the ball predicting
+    methods. I also worked in the control team trying to do a simple design for
+    milestone 4 without using the arcs that we had trouble implementing.\\
+
+    Tomas Tauber &
+    s0943263 &
+    6&
+    I identified problems with the current Strategy code and discussed possible
+    fixes with Chris, I was involved in rewriting the Control code to adapt to the
+    needs of the Strategy code and fixing and investigating issues that came up
+    with this new Control code, and I helped Darie, Laurie, and Dale with their
+    attempts to prepare a solution for the milestone.\\
+
+    Christopher Williams &
+    s0955088 &
+    6&
+    I have been working on the Planning and Strategy of the robot. This
+    involved me completing my work on A* and troubleshooting: to re-do the
+    current A* so that it was no longer working on binary costs.\\
+
+
+
+\end{longtable}
+\textbf{Good things} - A lot of bugs were eliminated from the system and we
+have narrowed the search for our control bug down to a timing issue.
+
+\textbf{Things to improve} - There is still a bug somewhere in the control
+systems which prevents us from making the robot do what we want. There are
+still large areas of undocumented code which we need to finish.
+
+\end{document}
