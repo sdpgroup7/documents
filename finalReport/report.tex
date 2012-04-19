@@ -1,7 +1,6 @@
-\documentclass[12pt, a4paper]{article}
+\documentclass[12pt,a4paper]{article}
 
 \usepackage[cm]{fullpage}
-\usepackage{multicols}
 \usepackage{graphicx}
 
 \begin{document}
@@ -11,10 +10,23 @@
 
 \maketitle
 
-\begin{multicols}{2}
+\twocolumn
 
 \input{introduction.tex}
+\input{construction.tex}
+\input{vision.tex}
+\input{strategy.tex}
+\input{control.tex}
+\input{simulator.tex}
+\input{groupDynamics.tex}
+\input{codeMan.tex}
 \input{conclusion.tex}
 
-\end{multicols}
+\onecolumn
+\appendix
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{bib}
+
 \end{document}
