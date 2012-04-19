@@ -13,5 +13,19 @@ After deciding on which code we were going to use we started to realise how unwi
 POSSIBLY NEEDS MORE WHY?  SHOULD WE GO INTO MORE DETAIL ON WHAT WE HAVE NOW
 
 
+\subsection{Random Sampling for Centroid Calculation}
+
+Centroiding can be strongly affected by noise, even just a few noisy pixels, this was a problem for us because the yellow in the vision feed was quite grey and testing for yellow pixels would capture parts of the robot that weren't yellow.  Applying a noise filtering algorithm was too slow, halving the frame rate, and clustering was a bit too slow for our tastes.  So James came up with a technique to give us the benefits of clustering in linear speed.  Below is an example of how the algorithm works using the yellow T as an example.
+\begin{enumerate}
+\item Go through frame pixel by pixel, if pixel is identified as yellow then place it one of five bins randomly.
+\item Calculate centroid of all five bins.
+\item If the centroid of a bin does not lie on a yellow pixel then discard it, thus removing the noisy pixels.
+\item Take the mean of the remaining centroids and set this to be the centroid of the object, in this case the yellow T.
+\item If all bins were discarded then keep the centroid where it was.
+\end{enumerate}
+
+The case of all the bins being discarded is a rare one, as there are very few noisy pixels compared to non noisy pixels.  This method was very fast, we only lost a couple of fps from the processing.  Using the vision testing system (when it was not well calibrated) it achieved accuracy of around 85\% but through oracle testing it was clear it was far more accurate, nearing 100\%.
+
+
 
 
