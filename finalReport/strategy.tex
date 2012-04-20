@@ -1,3 +1,32 @@
 \section{Strategy}
 
+\subsection{Control Interface}
+
+With the method of planning being set as A-star we needed some method to
+convert the plan given by the strategy systems into commands the robot could
+preform. Our objective for this subsystem was to find a simple algorithm that
+would create a smooth robotic motion which could respond without disruption to
+changes in strategy's plan.
+
+Point to point navigation, the robot turning and moving to each point on the
+A-star plan, was dismissed early on. It would not provide us with the smooth
+motion we wanted as it would have stopped at each point on the path whenever it
+needed to make a significant turn.
+
+We reasoned that the best way to solve the problem of the stop start motion of
+the point to point navigation was to apply smoothing to the path given by
+A star. A variation of A star called Theta star provided this by selecting
+a lookahead distance which allowed some points on the path to be missed out
+thus creating a smoother path.
+
+The Pure Pursuit algorithm was found to satisfy our needs. It is used
+frequently in autonomous vehicles with non holomonic
+movement for path tracking\cite{agvpp}\cite{coulterpp}. In our case we are
+using it to track the path given to us by A star.
+
+As the robot is constantly moving in some sort of arc under pure pursuit this
+eliminates the problems caused by point to point navigation. The motion is
+smooth and uninterrupted. Pure pursuit also only considers a limited distance
+in front of it the plan can be changed as the situation on the pitch changed.
+
 
