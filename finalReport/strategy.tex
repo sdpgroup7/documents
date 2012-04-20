@@ -1,10 +1,85 @@
 \section{Strategy}
 
+%--------------------------------------------------------------CHRIS
+%UML (yes this is going in appendix) - Chris
+%we had more plans about how this was going to be done - Chris
+
+Preliminary designs for Strategy were developed in meetings, some initial 
+problems were:\newline
+{\bf a)} How to represent the environment, {\bf b)} How to create some 
+understanding of where the robot is with relation to 'a Plan', 
+{\bf c)} How to build a test framework, {\bf d)} How to communicate a 
+Strategy Model to team members and {\bf e)} What do we want a 'Plan' to be
+\newline
+The World state updated by the Vision system gave us an object orientated view
+of the environment. This gave us a representation of the world we could use
+to develop code and structure a strategy system around.
+
+How to create some understanding of where the robot is in relation to a Plan
+was a particularly difficult problem owing to the fact that there is a delay 
+between where the robot is in reality and what is in the world state, and also 
+because of the complication of needing to translate what a position means in the 
+Strategy system into what a position means in the real world. This led to the 
+conclusion that the Strategy subsystem should be kept simple, and we divided it 
+up into further units which will be discussed subsequently: {\bf see Planning}.
+
+The test frame work was initially going to be testing the logic and planning 
+on a simulator, another design aspect seen frequently in previous year designs.
+Also with Unit testing for individual code sections.
+
+Communicating the design layout to the team was done in meetings, there were 
+also UML diagrams created and placed on our group-public repository Github.
+%APPENDIX REFERENCE TO SOME UML DESIGN
+
+Lastly developing what a 'Plan' should be went through several cycles, initially
+the plan was to be driven by the state of the environment, where we would have 
+relationships between all the major objects and some event based reaction. 
+However looking at a previous groups code this meant creating huge amounts of
+conditions, which we believed to be particularly difficult and an overly 
+complicated design. Finally we settled on a 'Ball driven' design where by the 
+path finding and decision making would be made primarily on where the ball is
+in relation the to oppositions goal line.
+%--------------------------------------------------------------CHRIS
+
+\subsection{Planning}
+
+
+%--------------------------------------------------------------CHRIS
+%some introduction to planning...
+
+We solved the problem of where the robot is in relation to the Plan quite simply
+by ignoring it. That is to say we developed a model that would create a Plan
+as fast as possible, as often as possible, on what information was in the World
+State. This meant we were always designing a Plan from the latest known position 
+of the robot.
+
+Planning was driven by an Object called Target Decision, which passes a target
+point to the A* which in turn creates a path:
+
+%Target Decision (Chris):
+
+Target decision is the decision structure for the 'Plan', based on the ball 
+position, it tries finds a point that the robot can get to, based on certain 
+restrictions; the oppositions position and the pitch walls. Failing a obvious
+shot into the goal, it will create the option to ricochet the ball off a pitch
+wall. If however the opposition is in a threatening position, Target Decision
+will drive the A* to create a path back to our own goal line.
+
+%Nav point - Subsumption Arch - Interception
+
+One obvious part of a Plan is the path required...
+%over to you Laurie?
+%This doesn't make any sense, one person should write the A* part
+%discuss why we took A* over potential fields, that we wanted an A* from grp 3
+%that our initial A* had a limitation with the binary objects problem, and that
+%we updated it with cost-objects instead
+%--------------------------------------------------------------CHRIS
+
 \subsection{Control Interface}
 
 With the method of planning being set as A-star we needed some method to
 convert the plan given by the strategy systems into commands the robot could
-preform. Our objective for this subsystem was to find a simple algorithm that
+perform. Our objective for this subsystem was to find a simple algorithm that
 would create a smooth robotic motion which could respond without disruption to
 changes in strategy's plan.
 
@@ -28,5 +103,41 @@ As the robot is constantly moving in some sort of arc under pure pursuit this
 eliminates the problems caused by point to point navigation. The motion is
 smooth and uninterrupted. Pure pursuit also only considers a limited distance
 in front of it the plan can be changed as the situation on the pitch changed.
+
+%--------------------------------------------------------------CHRIS
+\subsection{Discussion - Planning}
+
+%what we would do differently and why - Chris
+%why did we not use group 3 code, or any other group’s code - Chris
+
+Two major costs in regards to effort put into Planning were the lack of a 
+simulator, and our work on A*. 
+
+The simulator was the biggest cost to this project, owing to the fact we had
+no way of testing out logic and maths in a controllable environment. We should
+have taken a previous years simulator and adapted it to our requirements as
+early as possible. 
+
+Our final A* design still has a flaw, using cost based objects required the 
+g-cost of the A* to be reduced else the A* would function incorrectly, thus a 
+parameter needed to be used to reduce the weighting of g-cost in the A*, which 
+meant the given path was not always optimal. Some function that optimises the A* 
+path after creation would be necessary to fix this flaw, one that has latterly 
+been discovered in a previous years code (Group 3). Discovered too late 
+in the project, we should have instead opted to use a previous years A* from the 
+start and spent our time optimising this code instead of writing our own 
+(again Group 3).
+
+Target Decision was the only portion of this code that could not have been 
+taken from previous years, as there was no suitable code (suitable defined by:
+well commented, written in Java, and not simplistic if/else statements). This 
+area should be given far more consideration, our subsumption architecture is
+simplistic, but it has scope for more intelligent use, such as: The ability to
+change from a Penalty Mode into a Free play mode and the reverse of this 
+scenario, the ability to consider the pitch in sections, and thus create a Plan
+for when the ball is in the corner (a weakness for most oppositions) and lastly 
+to utilize our spinners a mode where we can dribble the ball by using the 
+'Target' and 'NavPoint' intelligently.
+%--------------------------------------------------------------CHRIS
 
 
