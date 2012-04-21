@@ -12,6 +12,12 @@ After deciding on which code we were going to use we started to realise how unwi
 
 POSSIBLY NEEDS MORE WHY?  SHOULD WE GO INTO MORE DETAIL ON WHAT WE HAVE NOW
 
+\subsection{Integration}
+
+The main advantage of using a previous year’s code was that it allowed us to start planning and coding almost immediately. One of the key parts focused on initially was the creation of “WorldState”. This was a class which held all the current data about the pitch, updated as often as the frame refreshed usually. It was planned to be as easy to use as possible with clear getters and setters for each variable. With this in place strategy would know exactly what data they had available and how to access it giving them an easier time in planning. However, it was not completely clear when we initially started what data we would need and over time the class grew larger and larger, requiring a major refactor which split the WorldState into its different components (two robots, a ball and the pitch). The layout was clear and easy to use and facilitated faster planning and coding, helping us develop as good a robot as possible.
+
+This, however, was our only thought towards integration. It was reasoned that since each sub-system was part of the same application, when another system required more processing time, vision could slow down and give up its processor time to another sub-system. This turned out to be more difficult to implement than we originally anticipated. The problem could have been effectively resolved by researching more in the initial stages of the vision system.
+
 
 \subsection{Random Sampling for Centroid Calculation}
 
@@ -25,6 +31,14 @@ Centroiding can be strongly affected by noise, even just a few noisy pixels, thi
 \end{enumerate}
 
 The case of all the bins being discarded is a rare one, as there are very few noisy pixels compared to non noisy pixels.  This method was very fast, we only lost a couple of fps from the processing.  Using the vision testing system (when it was not well calibrated) it achieved accuracy of around 85\% but through oracle testing it was clear it was far more accurate, nearing 100\%.
+
+\subsection{Vision Testion System}
+
+One of the most important things in any application is the knowledge that the application works as expected. The key to this is having a good testing system. With a testing system you can change your algorithms, using the tests to ensure that they continue to function as desired. Testing the vision system was extremely tricky and required some serious problem solving. The functions were giving us results, but we had no data to test against. The solution was rather elegant: Each time the system is run in the debugging mode, present a freeze frame to the user and ask them to provide the data. This was accomplished by the user clicking the positions of the robots and the ball. For the orientation we had them also click the tip of the T, getting a result accurate to within 5 degrees - an acceptable margin of error. The data was stored as an XML file along with the freeze frame. When it came to running unit tests, either manually or by our build system Jenkins, we simply had to run the single frame through the vision testing system and compare the generated results to the user generated results. If they matched within a certain degree then the test passed. A simple and elegant solution for a complex problem. 
+
+\subsection{Are we happy?}
+
+The vision system overall was excellent. It provided us with extremely accurate and consistent results, as shown by our testing system, and was still fast enough to process every single frame without performance loss. That being said, the vision system was only so good because of the time and effort invested in it. Given the chance to do it again we would change the development in one key way: use Python instead of Java. Python was a much more suitable language for this project and was only avoided due to inexperience with the language. It has access to the SimpleCV library (Java also has access but it is much more difficult to interact with) which would have speeded development by a rather large factor with very similar results. Accuracy could have been increased even further, the only downside being the slightly slower speed. This we feel would have been an acceptable trade off as it would have allowed us to re-assign our manpower much more effectively - a vital task in a smaller team such as our own.
 
 
 
