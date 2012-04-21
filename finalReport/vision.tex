@@ -8,17 +8,17 @@ We also used the barrel distortion correction code from group 5.  Most groups wh
 
 \subsection{In the Beginning}
 
-After deciding on which code we were going to use we started to realise how unwieldy it was.  Most of the work was being done in an undocumented 700ish line method.  So first thing for us to do was to work out what was going and try and do our best to refactor it to make it more understandable.  We then saw that they were using both hsv and rgb values for thresholding, so we stripped out the hsv checking.  In group 3's code the thresholding was done by moving sliders around to find the optimal values, we changed this so that the thresholding would be based on a click, saving time and effort (this was later removed when Rado's better thesholding technique was introduced).  We then started the work of improving the accuracy and efficiency of their code (DO WE HAVE ANY STATS ON WHAT IS WAS WHEN WE STARTED?).  This included heavy refactoring, new algorithms for all aspects of the system.  All we are using currently is their code for grabbing frames, and some aspects of their G.U.I.
+After deciding on which code we were going to use we started to realise how unwieldy it was.  Most of the work was being done in an undocumented 700+ line method.  So first thing for us to do was to work out what was going on and try and do our best to refactor it to make it more understandable.  We then saw that they were using both hsv and rgb values for thresholding, so we stripped out the hsv checking.  In group 3's code the thresholding was done by moving sliders around to find the optimal values, we changed this so that the thresholding would be based on a click, saving time and effort (replaced by the technique described in section~\ref{sec:thresh}).  We then started the work of improving the accuracy and efficiency of their code.  This included heavy refactoring and new algorithms for all aspects of the system.  All we are using currently is their code for grabbing frames, and some aspects of their G.U.I. An overview can be seen in figure~\ref{overview}.
 
-POSSIBLY NEEDS MORE WHY?  SHOULD WE GO INTO MORE DETAIL ON WHAT WE HAVE NOW
 
 \subsection{Integration}
 
-The main advantage of using a previous year�s code was that it allowed us to start planning and coding almost immediately. One of the key parts focused on initially was the creation of �WorldState�. This was a class which held all the current data about the pitch, updated as often as the frame refreshed usually. It was planned to be as easy to use as possible with clear getters and setters for each variable. With this in place strategy would know exactly what data they had available and how to access it giving them an easier time in planning. However, it was not completely clear when we initially started what data we would need and over time the class grew larger and larger, requiring a major refactor which split the WorldState into its different components (two robots, a ball and the pitch). The layout was clear and easy to use and facilitated faster planning and coding, helping us develop as good a robot as possible.
+The main advantage of using a previous year's code was that it allowed us to start planning and coding almost immediately. One of the key parts focused on initially was the creation of �WorldState�. This was a class which held all the current data about the pitch, updated as often as the frame refreshed usually. It was planned to be as easy to use as possible with clear getters and setters for each variable. With this in place strategy would know exactly what data they had available and how to access it giving them an easier time in planning. However, it was not completely clear when we initially started what data we would need and over time the class grew larger and larger, requiring a major refactor which split the WorldState into its different components (two robots, a ball and the pitch). The layout was clear and easy to use and facilitated faster planning and coding, helping us develop as good a robot as possible.
 
 This, however, was our only thought towards integration. It was reasoned that since each sub-system was part of the same application, when another system required more processing time, vision could slow down and give up its processor time to another sub-system. This turned out to be more difficult to implement than we originally anticipated. The problem could have been effectively resolved by researching more in the initial stages of the vision system.
 
 \subsection{Thresholding using RGB}
+\label{sec:thresh}
 
 We implemented a simple, yet very efficient, in terms of accuracy and speed, algorithm to preforms thresholding for specific colours, using only the RGB colours space. This was used for recognition of the objects on the pitch. The method works by noting that red, for example, can be identified as something that has high value of the red channel and low values at the green and blue.  Thus, inspecting a pixel in all three colour channels and using a broather notion of what can really be considered as red, the pixels of the ball are extracted. This notion is best illustrated by the following figure: 
 
@@ -27,16 +27,9 @@ Similar technique was used for the other colours, representing the other objects
 
 \subsection{Random Sampling for Centroid Calculation}
 
-Centroiding can be strongly affected by noise, even just a few noisy pixels, this was a problem for us because the yellow in the vision feed was quite grey and testing for yellow pixels would capture parts of the robot that weren't yellow.  Applying a noise filtering algorithm was too slow, halving the frame rate, and clustering was a bit too slow for our tastes.  So James came up with a technique to give us the benefits of clustering in linear speed.  Below is an example of how the algorithm works using the yellow T as an example.
-\begin{enumerate}
-\item Go through frame pixel by pixel, if pixel is identified as yellow then place it one of five bins randomly.
-\item Calculate centroid of all five bins.
-\item If the centroid of a bin does not lie on a yellow pixel then discard it, thus removing the noisy pixels.
-\item Take the mean of the remaining centroids and set this to be the centroid of the object, in this case the yellow T.
-\item If all bins were discarded then keep the centroid where it was.
-\end{enumerate}
+Centroiding can be strongly affected by noise, even just a few noisy pixels as can be seen in figure \cite{vis1}, this was a problem for us because the yellow in the vision feed was quite grey and testing for yellow pixels would capture parts of the robot that weren't yellow.  Applying a noise filtering algorithm was too slow, halving the frame rate, and clustering was a bit too slow for our tastes.  So a technique was developed to give us the benefits of clustering in linear speed.  Figure~\ref{bins} provides an overview of how the algorithm works with respect to finding the yellow T.
 
-The case of all the bins being discarded is a rare one, as there are very few noisy pixels compared to non noisy pixels.  This method was very fast, we only lost a couple of fps from the processing.  Using the vision testing system (when it was not well calibrated) it achieved accuracy of around 85\% but through oracle testing it was clear it was far more accurate, nearing 100\%.
+The case of all the bins being discarded is a rare one, as there are very few noisy pixels compared to non noisy pixels.  This method was very fast, we only lost a couple of fps from the processing.  Using the vision testing system (when it was not well calibrated) it achieved an accuracy of around 85\% but through oracle testing it was clear it was far more accurate, nearing 100\%.
 
 \subsection{Vision Testion System}
 
