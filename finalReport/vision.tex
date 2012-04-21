@@ -22,7 +22,6 @@ This, however, was our only thought towards integration. It was reasoned that si
 
 We implemented a simple, yet very efficient, in terms of accuracy and speed, algorithm to preforms thresholding for specific colours, using only the RGB colours space. This was used for recognition of the objects on the pitch. The method works by noting that red, for example, can be identified as something that has high value of the red channel and low values at the green and blue.  Thus, inspecting a pixel in all three colour channels and using a broather notion of what can really be considered as red, the pixels of the ball are extracted. This notion is best illustrated by the following figure: 
 
-\includegraphics[scale=1]{RGB_Space.jpg} 
 
 Similar technique was used for the other colours, representing the other objects. An example for blue is also illustrated in the figure. We chose RGB for several reasons. It is more intuitive and it produced a faster and more accurate results. Since Java supplies the grabbed frame in RGB, no time is waisted in conversion to other colour spaces. The system could identify the position of the two robots, the ball, and their orientations within 37 fps. For the deciding of how accurate the method was, human oracle testing was used. This involved team members to visually check the validity of the outputs produced by the method, given an observed visual setting. Also, a comprehensive guide was written as a documentation, explaining the workings of the method, so future developers can understand and improve. 
 
