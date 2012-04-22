@@ -7,38 +7,38 @@
 Preliminary designs for Strategy were developed in meetings, some initial 
 problems were:\newline
 {\bf a)} How to represent the environment, {\bf b)} How to create some 
-understanding of where the robot is with relation to 'a Plan', 
+understanding of where the robot is with relation to 'a plan', 
 {\bf c)} How to build a test framework, {\bf d)} How to communicate a 
-Strategy Model to team members and {\bf e)} What do we want a 'Plan' to be
+strategy model to team members and {\bf e)} What do we want a 'plan' to be
 \newline
-The World state updated by the Vision system gave us an object orientated view
+The WorldState updated by the vision system gave us an object orientated view
 of the environment. This gave us a representation of the world we could use
 to develop code and structure a strategy system around.
 
 How to create some understanding of where the robot is in relation to a Plan
 was a particularly difficult problem owing to the fact that there is a delay 
-between where the robot is in reality and what is in the world state, and also 
+between where the robot is in reality and what is in WorldState, also 
 because of the complication of needing to translate what a position means in the 
 Strategy system into what a position means in the real world. This led to the 
-conclusion that the Strategy subsystem should be kept simple, and we divided it 
+conclusion that the Strategy subsystem should be kept simple, so we divided it 
 up into further units which will be discussed subsequently: {\bf see Planning}.
 
 The test frame work was initially going to be testing the logic and planning 
-on a simulator, another design aspect seen frequently in previous year designs.
-Also with Unit testing for individual code sections.
+on a simulator, another design aspect seen frequently in previous year's designs,
+along with unit testing for individual code sections.
 
 Communicating the design layout to the team was done in meetings, there were 
-also UML diagrams created and placed on our group-public repository Github.
+also UML diagrams created and placed in our git repository.
 %APPENDIX REFERENCE TO SOME UML DESIGN
 
 Lastly developing what a 'Plan' should be went through several cycles, initially
 the plan was to be driven by the state of the environment, where we would have 
 relationships between all the major objects and some event based reaction. 
-However looking at a previous groups code this meant creating huge amounts of
+However looking at a previous group's code this meant creating huge amounts of
 conditions, which we believed to be particularly difficult and an overly 
-complicated design. Finally we settled on a 'Ball driven' design where by the 
-path finding and decision making would be made primarily on where the ball is
-in relation the to oppositions goal line.
+complicated design. Finally we settled on a 'ball driven' design where the 
+path finding and decision making would be driven primarily by where the ball is
+in relation the to opposition's goal line.
 %--------------------------------------------------------------CHRIS
 
 \subsection{Planning}
@@ -49,20 +49,19 @@ in relation the to oppositions goal line.
 
 We solved the problem of where the robot is in relation to the Plan quite simply
 by ignoring it. That is to say we developed a model that would create a Plan
-as fast as possible, as often as possible, on what information was in the World
-State. This meant we were always designing a Plan from the latest known position 
+as fast as possible, as often as possible, based on what information was in the WorldState. This meant we were always designing a Plan from the latest known position 
 of the robot.
 
-Planning was driven by an Object called Target Decision, which passes a target
-point to the A* which in turn creates a path:
+Planning was driven by an object called Target Decision, which passes a target
+point to the A* which in turn creates a path.
 
 %Target Decision (Chris):
 
 Target decision is the decision structure for the 'Plan', based on the ball 
 position, it tries finds a point that the robot can get to, based on certain 
-restrictions; the oppositions position and the pitch walls. Failing a obvious
-shot into the goal, it will create the option to ricochet the ball off a pitch
-wall. If however the opposition is in a threatening position, Target Decision
+restrictions such as the opposition's position and the pitch walls. Failing an obvious
+shot into the goal it will create the option to ricochet the ball off a pitch
+wall. If however the opposition is in a threatening position Target Decision
 will drive the A* to create a path back to our own goal line.
 
 %Nav point - Subsumption Arch - Interception
@@ -80,9 +79,9 @@ interface with comprehensible plans, in the form of a list of nodes, that could
 be converted into series of commands. The algorithm can effectively deal with 
 obstacles and offers a computational advantage over alternatives such as theta-star. 
 The first version of A* we used incorporated a binary obstacle system, this posed 
-a number of problems for us in practice. For example, if the ball happened to be 
+a number of problems for us in practise. For example, if the ball happened to be 
 next to our opponent (inside an obstacle) then we could not plot a path to it and 
-pathfinding would fail. This meant it had to be completely re-written to instead 
+path-finding would fail. This meant it had to be completely re-written to instead 
 give obstacles a very high cost value. In this way the algorithm will try to avoid 
 obstacles, but can still plot a path to it through obstacles.
 %-Image of the overlay doing this would be good here.
@@ -114,11 +113,11 @@ needed to make a significant turn.
 We reasoned that the best way to solve the problem of the stop start motion of
 the point to point navigation was to apply smoothing to the path given by
 A star. A variation of A star called Theta star provided this by selecting
-a lookahead distance which allowed some points on the path to be missed out
+a look-ahead distance which allowed some points on the path to be missed out
 thus creating a smoother path.
 
 The Pure Pursuit algorithm was found to satisfy our needs. It is used
-frequently in autonomous vehicles with non holomonic
+frequently in autonomous vehicles with non holonomic
 movement for path tracking\cite{agvpp}\cite{coulterpp}. In our case we are
 using it to track the path given to us by A star.
 
@@ -138,10 +137,10 @@ simulator, and our work on A*.
 
 The simulator was the biggest cost to this project, owing to the fact we had
 no way of testing out logic and maths in a controllable environment. We should
-have taken a previous years simulator and adapted it to our requirements as
+have taken a previous year's simulator and adapted it to our requirements as
 early as possible. 
 
-Our final A* design still has a flaw, using cost based objects required the 
+Our final A* design still has a flaw: using cost based objects required the 
 g-cost of the A* to be reduced else the A* would function incorrectly, thus a 
 parameter needed to be used to reduce the weighting of g-cost in the A*, which 
 meant the given path was not always optimal. Some function that optimises the A* 
@@ -158,8 +157,8 @@ area should be given far more consideration, our subsumption architecture is
 simplistic, but it has scope for more intelligent use, such as: The ability to
 change from a Penalty Mode into a Free play mode and the reverse of this 
 scenario, the ability to consider the pitch in sections, and thus create a Plan
-for when the ball is in the corner (a weakness for most oppositions) and lastly 
-to utilize our spinners a mode where we can dribble the ball by using the 
+for when the ball is in the corner (a weakness for most opposition teams) and lastly 
+to utilise our spinners with a mode where we can dribble the ball by using the 
 'Target' and 'NavPoint' intelligently.
 %--------------------------------------------------------------CHRIS
 
