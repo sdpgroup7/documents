@@ -1,0 +1,18 @@
+\section{Vision Appendix}
+\label{apx:vision}
+
+\begin{figure}[h!]
+    \caption{What vision is doing}
+    \label{overview}
+    \centering
+        \begin{enumerate}
+            \item Capture a frame from the video feed.
+            \item Run thresholding to find what pixels are red/yellow/green/blue.
+            \item Find the position of the robots and the ball and correct for parallax and barrel distortion.
+            \item Find the orientation of the robots.
+            \item Update all this information in WorldState.
+        \end{enumerate}
+\end{figure}
+
+%The label is so it can be dynamically refrenced from else where in the
+%document
