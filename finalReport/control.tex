@@ -1,20 +1,79 @@
 \section{Control}
 %Tom
-In the last year's code repository, several teams reported their Control/Communication sub-system had occasional problems. Group 5, however, did not mention any such problems, their Control code was easy to follow (clearly defined communication interface, integer operation codes for controlling the robot and so on) and used leJOS, an actively developed firmware and framework for LEGO Mindstorms in Java. For these reasons, we based our Control sub-system on their code. After upgrading to the latest leJOS version 0.9.1 from 0.85 (it promised bug fixes, less memory usage, reduced power consumption when idle, better Java language support, more of useful tools and classes\cite{lejos}), some parts of the reused code had to be rewritten, because they used deprecated constructs. Using the class \textit{OdometryPoseProvider}, a simple fallback navigation was made. It saved the robot's initial position, in front of our goal, and would move the robot directly there in the event of a lost bluetooth connection.
+In the last year's code repository, several teams reported their Control/Communication 
+sub-system had occasional problems. Group 5, however, did not mention any such problems, 
+their Control code was easy to follow (clearly defined communication interface, integer 
+operation codes for controlling the robot and so on) and used leJOS, an actively 
+developed firmware and framework for LEGO Mindstorms in Java. For these reasons, we based 
+our Control sub-system on their code. After upgrading to the latest leJOS version 0.9.1 
+from 0.85 (it promised bug fixes, less memory usage, reduced power consumption when idle, 
+better Java language support, more of useful tools and classes\cite{lejos}), some parts 
+of the reused code had to be rewritten, because they used deprecated constructs. Using 
+the class \textit{OdometryPoseProvider}, a simple fallback navigation was made. It saved 
+the robot's initial position, in front of our goal, and would move the robot directly 
+there in the event of a lost bluetooth connection.
 %---
 \subsection{Final Version}
 
-The initial design of our system worked by generating plans as quickly as possible and sending the instructions to the robot. The reasoning was that the plans would always be as accurate as possible this way. We discovered however, that the robot was acting unpredictably with these commands. The issue was narrow down to bluetooth buffering issues and it meant that we had no idea what command the robot was currently executing. This was a problem.
+The initial design of our system worked by generating plans as quickly as possible and 
+sending the instructions to the robot. The reasoning was that the plans would always be 
+as accurate as possible this way. We discovered however, that the robot was acting 
+unpredictably with these commands. The issue was narrow down to bluetooth buffering 
+issues and it meant that we had no idea what command the robot was currently executing. 
+This was a problem.
 
-The design was changed so that the planning was still done as often as possible to keep them up to date, but the commands were not sent until the previous one was acknowledged. This made sure that we knew which commands were being run, and we didn�t have the robot acting unpredictably. Other issues were also solved with our new design. Due to Java limitations it was extremely difficult to send negative numbers. Previous years solved this by adding a large number before sending, then subtracting it at the other end. A more elegant solution was so simply have two different opcodes. A positive direction action and a negative direction action so that the numbers being sent were always positive. Furthermore, a new kicking method was introduced. Instead of an explicit command to kick, buried inside each instruction was a flag to kick or not. This meant that we could either continue and kick, or start executing an entirely new command and kick at the same time. 
+The design was changed so that the planning was still done as often as possible to keep 
+them up to date, but the commands were not sent until the previous one was acknowledged. 
+This made sure that we knew which commands were being run, and we didn�t have the robot 
+acting unpredictably. Other issues were also solved with our new design. Due to Java 
+limitations it was extremely difficult to send negative numbers. Previous years solved 
+this by adding a large number before sending, then subtracting it at the other end. 
+A more elegant solution was so simply have two different opcodes. A positive direction 
+action and a negative direction action so that the numbers being sent were always 
+positive. Furthermore, a new kicking method was introduced. Instead of an explicit 
+command to kick, buried inside each instruction was a flag to kick or not. This meant 
+that we could either continue and kick, or start executing an entirely new command and 
+kick at the same time. 
 
 \subsection{Bluetooth measurements}
 %Wiktor
-In order to further investigate the Bluetooth issues, a ping tool was created to measure the latencies of the protocol. The computer sends a packet with a numeric value to the robot, which then sends back the same packet as a reply. The numeric value is increased, and the process is looped. The output from the tool is the same as the \texttt{ping(8)} tool to aid processing the results. After running the tool a large number of times, interesting patterns can be seen. The latencies can be grouped into three, very distinct, sets: short, medium and long. In each group, the latencies will be roughly the same, which suggests one or both of the Bluetooth implementations (on the computer and/or on the robot) contain a buffer. When sending a packet, the packet is put in the buffer, but it is not sent until the buffer fills in, or a clock tick is fired. Because the tool will not send the next packet until it receives a response, the controller is forced to wait on the clock. This might be due to the timing requirements of the Bluetooth specification or an implementation quirk in one or both of the Bluetooth controllers, the Bluetooth library, or the NXT communications library.
+In order to further investigate the Bluetooth issues, a ping tool was created to measure 
+the latencies of the protocol. The computer sends a packet with a numeric value to the 
+robot, which then sends back the same packet as a reply. The numeric value is increased, 
+and the process is looped. The output from the tool is the same as the \texttt{ping(8)} 
+tool to aid processing the results. After running the tool a large number of times, 
+interesting patterns can be seen. The latencies can be grouped into three, very distinct, 
+sets: short, medium and long. In each group, the latencies will be roughly the same, 
+which suggests one or both of the Bluetooth implementations (on the computer and/or on 
+the robot) contain a buffer. When sending a packet, the packet is put in the buffer, but 
+it is not sent until the buffer fills in, or a clock tick is fired. Because the tool will 
+not send the next packet until it receives a response, the controller is forced to wait 
+on the clock. This might be due to the timing requirements of the Bluetooth specification 
+or an implementation quirk in one or both of the Bluetooth controllers, the Bluetooth 
+library, or the NXT communications library.
 
 \subsection{What would we do differently?}
 %Tom
-All teams that used leJOS last year and most likely even this year designed their NXT brick code using one of two approaches or their combination: competing or collaborating threads and event-triggering. Even though it is valid and working in most cases, it often results in a ``spaghetti code'' and is not recommended by leJOS, as we later discovered. The recommended design pattern for autonomous robots is the \textbf{behaviour control model}\cite{behaviour}. In this model, each robot's task is defined in its own class that implements the \textsl{Behavior} (the API's spelling) interface and it is clear what each behaviour does and when, and how it can be suppressed. These behaviours are then passed with fixed priorities to the \textsl{Arbitrator} class that regulates which behaviour should be active at any time. If more behaviours want to take control, only the one with the highest priority will become active and the current one will be suppressed.
+All teams that used leJOS last year and most likely even this year designed their NXT brick 
+code using one of two approaches or their combination: competing or collaborating threads 
+and event-triggering. Even though it is valid and working in most cases, it often results in 
+a ``spaghetti code'' and is not recommended by leJOS, as we later discovered. The 
+recommended design pattern for autonomous robots is the 
+\textbf{behaviour control model}\cite{behaviour}. In this model, each robot's task is defined 
+in its own class that implements the \textsl{Behavior} (the API's spelling) interface and it 
+is clear what each behaviour does and when, and how it can be suppressed. These behaviours are 
+then passed with fixed priorities to the \textsl{Arbitrator} class that regulates which 
+behaviour should be active at any time. If more behaviours want to take control, only the one 
+with the highest priority will become active and the current one will be suppressed.
 
-There are many advantages of this pattern: behaviours can be easily added, removed, or separated for testing; anyone familiar with this model can understand the code (i.e. more likely to get help from the leJOS community); it is guaranteed that only one behaviour can be in control at any time; behaviours do not make any assumptions about their priorities, so that priorities can be changed without reprogramming behaviours. Furthermore, it would then be easier to integrate the whole system with leJOS framework tools for robotics. These tools include, for example, the A* search algorithm that we (and many teams) implemented on our own. Using a 3$^{\textrm{rd}}$ party API in this scenario would enforce the same \textbf{consistent world state representation} and prevent the project from some problems we had due to the fact that people used different angle systems and units of measure in their algorithms.
+There are many advantages of this pattern: behaviours can be easily added, removed, or 
+separated for testing; anyone familiar with this model can understand the code (i.e. more 
+likely to get help from the leJOS community); it is guaranteed that only one behaviour can be 
+in control at any time; behaviours do not make any assumptions about their priorities, so that 
+priorities can be changed without reprogramming behaviours. Furthermore, it would then be 
+easier to integrate the whole system with leJOS framework tools for robotics. These tools 
+include, for example, the A* search algorithm that we (and many teams) implemented on our own. 
+Using a 3$^{\textrm{rd}}$ party API in this scenario would enforce the same \textbf{consistent 
+world state representation} and prevent the project from some problems we had due to the fact 
+that people used different angle systems and units of measure in their algorithms.
 %---
