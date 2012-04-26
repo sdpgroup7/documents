@@ -1,14 +1,25 @@
 \section{Conclusion}
 
-%Intergration
-%spinners
-%Not have team manager write a critical system 
-%Purepursuit
-%Project was enjoyable
+In summary; Our Vision system is stable and fast, running at 25fps, however
+time could have been saved by adapting a different code base. Our Strategy
+system has scope for further features, but needs a better A*,some simulator for
+testing and we would recommend a PID controller for the Control Interface. The
+Control code works, but we would suggest changing to a Behaviour Model for
+future designs. Our spinners are are a good feature as they provide better ball
+control we would highly recommend taking a previous year's robot design as
+a start for construction. Our biggest failing was integration of the
+sub-systems, as our robot does not behave as designed. 
 
-%What would we recommend people use, why
-%Details of prelimmaly designs and base deisgn off of that but spinners are
-%cool
-%Vision
-%entire suystem form last year 
-%What wouldnt we recommend, why
+Due to the delay between Vision creating and updating the \texttt{WorldState} and
+Control sending the command to the robot we have created a situation where the
+commands issued to the robot are not correct for the current point in time.
+More resources should have been allocated into integration of the
+subsystems earlier on. Taking a full project from a previous year and
+implementing new designs on this would have saved us considerable time, which
+could have been spent improving a design.
+
+Our team manager was also writing our Control Interface, this over stretched
+one person over two roles. The team manager should not be responsible for
+significant code generation. Furthermore we believe that we needed a Technical
+Lead, who would have overseen our Integration and kept the project design
+technically uniform.

@@ -15,7 +15,7 @@ unsuccessful which is why we used group five's code for barrel correction.
 Group three(2011) used both HSV and RGB values for thresholding, so we removed
 the HSV as it was surplus to requirement. We improved the accuracy and
 efficiency of their code with refactoring and introducing new algorithms. An
-overview can be seen in figure~\ref{overview}.
+overview can be seen in appendix~\ref{apx:vision}.
 
 One of the key parts focused on initially was the creation of
 \texttt{WorldState}. This is a Java class which reflects the environment as an
@@ -24,26 +24,27 @@ are updated with every new frame from the video feed.
 
 \subsection{Thresholding using RGB} \label{sec:thresh}
 
-We implemented a simple, yet efficient, algorithm to perform thresholding
-for colours, using the RGB colour space. This was used for recognition
-of the objects on the pitch. We chose RGB for several reasons; since Java
-supplied the captured frame in RGB, no time was wasted in converting to other
-colour spaces, the system could identify the position of the two robots, the
-ball, and their orientations within 37 fps. A comprehensive guide was written
-explaining the workings of the above method, so that future developers can understand
-and improve it.
+We implemented a simple, yet efficient, algorithm to perform thresholding for
+colours, using the RGB colour space. This was used for recognition of the
+objects on the pitch. We chose RGB for several reasons; since Java supplied the
+captured frame in RGB, no time was wasted in converting to other colour spaces,
+the system could identify the position of the two robots, the ball, and their
+orientations within 37 fps. A comprehensive guide was written explaining the
+workings of the above method, so that future developers can understand and
+improve it.
 
 \subsection{Random Sampling for Centroid Calculation}
 
 Centroiding can be strongly affected by noise, even just a few noisy pixels as
-can be seen in figure \cite{vis1}, this is a problem  because the yellow in the
-vision feed is quite grey and testing for yellow pixels would capture parts of
-the robot that weren't actually yellow.  Applying a noise filtering algorithm
-was too slow halving the frame rate and we believe we could create an algorithm
-faster than clustering.  A technique was developed to give us the benefits of
-clustering in linear speed, we only lost a few fps in processing.
-Figure~\ref{bins} provides an overview of how the algorithm works with respect
-to finding the yellow T.
+can be seen in figure \ref{vis1} in appendix~\ref{apx:centre}, this is
+a problem  because the yellow in the vision feed is quite grey and testing for
+yellow pixels would capture parts of the robot that weren't actually yellow.
+Applying a noise filtering algorithm was too slow halving the frame rate and we
+believe we could create an algorithm faster than clustering.  A technique was
+developed to give us the benefits of clustering in linear speed, we only lost
+a few fps in processing.  Figure~\ref{bins} in appendix~\ref{apx:centre}
+provides an overview of how the algorithm works with respect to finding the
+yellow T.
 
 The case of all the bins being discarded is a rare one, as there are very few
 noisy pixels compared to non noisy pixels.  
@@ -51,22 +52,21 @@ noisy pixels compared to non noisy pixels.
 \subsection{Vision Testing System}
 
 Testing the vision system is hard as there is no way to easily test the
-correctness without significant human parcticipation. We also had no data to test 
-against. The solution: each time the
-system is run in the debugging mode, present a freeze frame to the user and ask
-them to provide the positions of the robots and the ball. For the orientation
-we had the user click the tip of the T, getting a result accurate to within 5
-degrees - an acceptable margin of error. The data was stored as an XML file
-along with the freeze frame. When it came to running unit tests we simply had
-to run the single frame through the vision testing system and compare the
-generated results to the user generated results. If they matched within a
-certain degree then the test passed. 
+correctness without significant human participation. We also had no data to
+test against.  Our solution was each time the system is run in the debugging
+mode, present a freeze frame to the user and ask them to provide the positions
+of the robots and the ball. For the orientation we had the user click the tip
+of the T, getting a result accurate to within 5 degrees - an acceptable margin
+of error. The data was stored as an XML file along with the freeze frame. When
+it came to running unit tests we simply had to run the single frame through the
+vision testing system and compare the generated results to the user generated
+results. If they matched within a certain degree then the test passed. 
 
 \subsection{Discussion - Vision}
 
 There were perhaps too many resources (people hours) devoted to vision system
 design.  To save resources we could have used Python instead of Java. Python
-has access to the SimpleCV library which would have sped up development by a
-rather large factor.  Using Python would have given us more library functions
+has access to the SimpleCV library which would have sped up development by
+a rather large factor.  Using Python would have given us more library functions
 instead of having to develop our own. Java has limited interaction with the
 library, and was used due to decisions at the beginning of the project.
